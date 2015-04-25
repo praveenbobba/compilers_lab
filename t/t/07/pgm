@@ -1,0 +1,49 @@
+decl
+	boolean isprime(integer x);
+enddecl
+
+boolean isprime(integer x)
+{
+	decl
+		boolean ans;
+		integer i;
+	enddecl
+
+	begin
+		i = 2;
+		ans = true;
+
+		while (i < x)
+		do
+			if (x % i == 0)
+			then
+				ans = false;
+			endif;
+			i = i + 1;
+		endwhile;
+
+		return ans;
+	end
+}
+
+integer main()
+{
+	decl
+		integer x, i;
+	enddecl
+
+	begin
+		read(x);
+		i = 2;
+		while (i < x)
+		do
+			if (isprime(i))
+			then
+				write(i);
+			endif;
+			i = i + 1;
+		endwhile;
+
+		return 0;
+	end
+}

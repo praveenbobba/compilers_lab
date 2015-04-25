@@ -1,0 +1,2 @@
+decl integer a,b[100], n,i,c,d,t ;enddecl i=2; b[20-i] = 4; write(b[18]); write(b[20-i]);
+

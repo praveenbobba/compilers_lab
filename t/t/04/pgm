@@ -1,0 +1,23 @@
+decl
+	integer i;
+enddecl
+
+integer hello(integer a; integer b)
+{
+	decl
+	enddecl
+	begin
+		return 0;
+	end
+}
+
+integer main()
+{
+	decl
+		integer x;
+	enddecl
+
+	begin
+		return hello(0, 0);
+	end
+}

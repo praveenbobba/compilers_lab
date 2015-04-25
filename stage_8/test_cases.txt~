@@ -1,0 +1,19 @@
+decl integer a,b[2]; enddecl a=4; read(b[0]); read(b[1]); write(a+b[0]+5*b[1]);
+
+decl integer a,b; enddecl a=4; read(b); write(a+b*3+5);
+
+decl integer a,b[2]; enddecl a=4; b[0]=2; write(a+b[0]+5);
+
+decl integer b[2]; enddecl b[0]=2; write(b[0]+5);
+
+decl integer a,b; enddecl a=4; read(b); write(a+b+5);
+
+decl integer a,b,c,d; enddecl a=4; b=5;c=3;d=1; write(a+b+5*c-d);
+
+decl integer a,b[3]; enddecl a=2; read(b[0]); read(b[2]); b[1]= 5; write(a+b[0]+5*b[0+a]);
+
+decl integer prav; boolean in[3],out; enddecl prav = 2; in[1]=TRUE;out=FALSE; if(NOT( NOT in[1])) then write(prav); endif ;
+
+decl integer a,b[100], n,i,c,d,t ;enddecl i=2; read(b[20-j]); write(b[18]); write(b[20-j]);
+
+decl integer a,b[100], n,i,c,d,t ;enddecl i=2; b[20-j = 4; write(b[18]); write(b[20-j]);

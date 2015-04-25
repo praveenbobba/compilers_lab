@@ -1,0 +1,38 @@
+decl
+	integer A(integer a, b);
+enddecl
+
+integer A(integer a, b)
+{
+	decl
+		integer ret;
+	enddecl
+	begin
+		if (a == 0)
+		then
+			ret = b;
+		else
+			if (b == 0)
+			then
+				ret = a;
+			else
+				ret = A(A(a-1, b-1), b-1);
+			endif;
+		endif;
+		return ret;
+	end
+}
+
+integer main()
+{
+	decl
+		integer n, a;
+	enddecl
+
+	begin
+		read(n);
+		read(a);
+		write(A(n, a));
+		return 0;
+	end
+}

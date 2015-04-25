@@ -1,0 +1,1 @@
+gcc symbol_7.c y.tab.c lex.yy.c treecreate_7.c  gettype.c

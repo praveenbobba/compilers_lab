@@ -1,0 +1,59 @@
+#!/bin/bash
+
+CMPLR=../stage_9/a.out		# Path to "YOUR" compiler
+SIM=../stage_9/sim		# Path to SIM simulator
+
+if [[ ! -e $CMPLR ]]
+then
+	echo "Compiler non-existent"
+	exit 1
+fi
+
+if [[ ! -e $SIM ]]
+then
+	echo "SIM simulator non-existent"
+	exit 1
+fi
+
+create_if_not_exist ()
+{
+	if [[ ! -e $1 ]]
+	then
+		touch $1
+	fi
+}
+
+# All tests are contained in the directory t
+# Each test has its own directory containing the following files
+#	=> pgm		(source program in SIL)
+#	=> in		(optional input to the program)
+#	=> xpct		(optional output to expect)
+#	=> des		(one line description)
+#	=> err		(optional error to expect)
+cd t
+
+for x in *
+do
+	if [[ ! -d $x ]]; then continue; fi
+	cd $x
+	create_if_not_exist pgm
+	create_if_not_exist in
+	create_if_not_exist xpct
+	create_if_not_exist des
+	create_if_not_exist err
+	../../$CMPLR pgm &>act_err
+	../../$SIM mach.xsm < in > act_out 2>>act_err
+	# Ignore the HALTING MACHINE output
+	head -n -2 act_out > act_out.new && mv act_out.new act_out
+	if cmp -s act_err err && cmp -s act_out xpct
+	then
+		printf "\e[32m[OK]\e[0m"
+	else
+		printf "\e[31m[FAIL]\e[0m"
+	fi
+	echo -n " - $x - "
+	cat des
+
+	rm -f tmp act_out act_err
+	cd ..
+done

@@ -1,0 +1,54 @@
+
+struct tnode 
+{
+
+	int type;
+	int nodetype;
+	char* name; 
+	int value;
+	//tnode *arglist;
+	struct tnode *ptr1, *ptr2, *ptr3;
+	struct gsymbol *gentry; 
+	struct lsymbol *lentry; 
+
+};
+
+#define YYSTYPE struct tnode *
+
+//struct Tnode *TreeCreate(TYPE,NODETYPE,VALUE,NAME,ArgList,Ptr1, Ptr2, Ptr3);
+
+
+struct gsymbol 
+{
+
+	char *name; 
+	int type; 
+	int size; 
+	int *binding; 
+	//ArgStruct *ARGLIST;
+	struct gsymbol *next; 
+};
+
+//struct gsymbol *glookup(name); 
+
+//void ginstall(name, type, size, arglist); 
+
+ 
+
+struct lsymbol 
+{
+
+	char *name; 
+	int type; 
+	//int size; 
+	int *binding; 
+	//ArgStruct *ARGLIST;
+	struct lsymbol *next;	
+
+};
+
+//struct lsymbol *llookup(name);
+
+//void linstall(name, type);
+
+ 

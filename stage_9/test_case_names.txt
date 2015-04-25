@@ -1,0 +1,34 @@
+[FAIL] - 00 - Factorial
+[FAIL] - 01 - I/O
+[FAIL] - 02 - More I/O
+[FAIL] - 03 - Duplicate arguments
+./test.sh: line 35: 16568 Segmentation fault      (core dumped) ../../$CMPLR pgm &> act_err
+[FAIL] - 04 - Function not declared
+[FAIL] - 05 - Multi-argument function
+[FAIL] - 06 - No name clash between function argument & global variables
+[FAIL] - 07 - Primes upto 100
+[FAIL] - 08 - Bubble sort
+[FAIL] - 09 - Fibonacci numbers
+[FAIL] - 10 - Pass by reference
+[FAIL] - 11 - Function redefinition
+[FAIL] - 12 - Function return type mismatch
+[FAIL] - 13 - Argument name mismatch
+[FAIL] - 14 - Argument evaluation strategy mismatch
+[FAIL] - 15 - Argument type mismatch
+[FAIL] - 16 - Fn definition with lesser number of arguments than declaration
+[FAIL] - 17 - Fn definition with more number of arguments than declaration
+[FAIL] - 18 - Return type mismatch between declaration & definition
+[FAIL] - 19 - Identifier used for fn call not a fn
+[FAIL] - 20 - Expression passed to function of incorrect type
+[FAIL] - 21 - Argument to be passed by reference argument not an identifier
+./test.sh: line 35: 16695 Segmentation fault      (core dumped) ../../$CMPLR pgm &> act_err
+[FAIL] - 22 - Argument to be passed by reference argument is a function
+[FAIL] - 23 - Extra arguments passed to function
+[FAIL] - 24 - Insufficient no of arguments passed to function
+[FAIL] - 25 - Main function return type should be integer
+[FAIL] - 26 - Bubble sort using pass by reference swap function
+[FAIL] - 27 - Quick sort using pass by reference swap function
+[FAIL] - 28 - Quick sort using pass by reference swap function that calls the actual swap function
+[FAIL] - 29 - Recursive function
+[FAIL] - 30 - 0 argument function
+

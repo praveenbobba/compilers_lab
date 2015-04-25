@@ -1,0 +1,71 @@
+decl
+	integer a[100], swap(integer &a, &b), sort(integer n);
+enddecl
+
+integer swap(integer &a, &b)
+{
+	decl
+		integer tmp;
+	enddecl
+
+	begin
+		tmp = a;
+		a = b;
+		b = tmp;
+		return 0;
+	end
+}
+
+integer sort(integer n)
+{
+	decl
+		integer i, j, tmp;
+	enddecl
+	begin
+		i = 0;
+		while (i < n)
+		do
+			j = 0;
+			while (j < n-1)
+			do
+				if (a[j] > a[j+1])
+				then
+					tmp = swap(a[j], a[j+1]);
+				endif;
+				j = j + 1;
+			endwhile;
+			i = i + 1;
+		endwhile;
+
+		return 0;
+	end
+}
+
+integer main()
+{
+	decl
+		integer n, i, ret;
+	enddecl
+
+	begin
+		read(n);
+
+		i = 0;
+		while (i < n)
+		do
+			read(a[i]);
+			i = i + 1;
+		endwhile;
+
+		ret = sort(n);
+
+		i = 0;
+		while (i < n)
+		do
+			write(a[i]);
+			i = i + 1;
+		endwhile;
+
+		return 0;
+	end
+}

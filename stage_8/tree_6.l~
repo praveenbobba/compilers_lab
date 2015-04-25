@@ -1,0 +1,174 @@
+%{
+
+  #include<stdio.h>
+  #include<stdlib.h>
+  #include"exptree_6.h"
+  #include"y.tab.h"
+  void yyerror(char *);
+
+
+%}
+
+
+
+%%
+
+"AND"	{//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+		yylval = treecreate(2,5,-1,*yytext,NULL,NULL,NULL);
+		return AND
+	}
+
+"OR"	{//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+		yylval = treecreate(2,5,-1,*yytext,NULL,NULL,NULL);
+		return OR
+	}
+
+"NOT"	{//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+		yylval = treecreate(2,6,-1,*yytext,NULL,NULL,NULL);
+		return NOT
+	}
+
+"decl"	{
+	return DECL ;
+	}
+
+"enddecl" {
+	   return ENDDECL ;
+	  }
+
+"integer" {
+	    return INTEGER ;
+	  }
+
+"boolean"	{
+	  return BOOLEAN ;
+	}
+
+"TRUE" {//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+	yylval = treecreate(2,0,1,"$",NULL,NULL,NULL);
+	//yylval->nodetype = 0;	
+	return TRUE ;
+	}
+
+"FALSE" {//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+	yylval = treecreate(2,0,0,"$",NULL,NULL,NULL);
+	//yylval->nodetype = 0;	
+	return FALSE ;
+	}
+
+[0-9]+ {//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+	yylval = treecreate(0,0,atoi(yytext),"$",NULL,NULL,NULL);
+	//yylval->nodetype = 0;	
+	//yylval->value = atoi(yytext);
+	return DIGIT ;
+	}
+
+[\-|+|/|\*|=] {//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+		yylval = treecreate(0,1,-1,*yytext,NULL,NULL,NULL);
+	//yylval->nodetype = 1;	
+	//yylval->name = *yytext;
+	return *yytext ;
+	}
+
+[a-z] {//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+		yylval = treecreate(-1,2,-1,*yytext,NULL,NULL,NULL);
+	//yylval->nodetype = 2;	
+	//yylval->name = *yytext;
+	return ID ;
+	}
+
+"read"	{//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+		yylval = treecreate(0,3,-1,"$",NULL,NULL,NULL);
+	//yylval->nodetype = 3;
+	//printf("read\n");
+	return READ ;
+	}
+
+"write" {//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+		yylval = treecreate(0,4,-1,"$",NULL,NULL,NULL);
+	//yylval->nodetype = 4;
+	//printf("write\n");
+	return WRITE ;
+	}
+
+"if" {//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+		yylval = treecreate(-1,7,-1,"$",NULL,NULL,NULL);
+	//yylval->nodetype = 7;
+	//printf("write\n");
+	return IF ;
+	}
+
+"then" {
+	return THEN ;
+	}
+
+"endif" {
+	return ENDIF ;
+	}
+
+"while" {//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+		yylval = treecreate(-1,8,-1,"$",NULL,NULL,NULL);
+	//yylval->nodetype = 8;
+	//printf("write\n");
+	return WHILE ;
+	}
+
+"do" {
+	return DO ;
+	}
+
+"endwhile" {
+	return ENDWHILE ;
+	}
+
+[<|>|<=|>=|!=] {//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+		yylval = treecreate(0,5,-1,*yytext,NULL,NULL,NULL);
+	//yylval->nodetype = 5;	
+	//yylval->name = *yytext;
+		if( strcmp (yytext,"<") == 0 )
+			return LT ;
+
+		if( strcmp (yytext,">") == 0 )
+			return GT ;
+
+		if( strcmp (yytext,"<=") == 0 )
+			return LE ;
+
+		if( strcmp (yytext,">=") == 0 )
+			return GE ;
+
+		if( strcmp (yytext,"!=") == 0 )
+			return NE ;
+	}
+
+"==" {//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+		yylval = treecreate(0,9,-1,"$",NULL,NULL,NULL);
+	//yylval->nodetype = 9;	
+	return EQU ;
+	}
+
+[\(|\)|;|,|\]|\[] 	{
+		//printf("%c\n",*yytext);
+		return *yytext;
+	}
+
+
+[\n] 	{
+		
+		return *yytext;
+	}
+
+[ \t] {
+		
+	}
+
+. yyerror("invalid"); 	
+	
+%%
+
+
+int yywrap(void)
+{
+	return 1;
+
+}

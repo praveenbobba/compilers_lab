@@ -1,0 +1,26 @@
+decl
+	integer hello(integer a, b), main();
+enddecl
+
+integer hello(integer a, b)
+{
+	decl
+	enddecl
+	begin
+		write(a);
+		write(b);
+		return 0;
+	end
+}
+
+integer main()
+{
+	decl
+		integer x;
+	enddecl
+
+	begin
+		read(x);
+		return hello(x, x + 3);
+	end
+}

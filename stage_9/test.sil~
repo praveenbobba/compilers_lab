@@ -1,0 +1,19 @@
+
+decl
+integer n;
+enddecl
+
+integer main ()
+{
+decl
+integer k;
+enddecl
+
+begin
+n = 2;
+write(n);
+return 0;
+end
+
+}
+

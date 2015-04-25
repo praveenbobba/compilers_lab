@@ -1,0 +1,49 @@
+decl
+	
+	integer sumof(integer n);
+	integer sub(integer n);
+enddecl
+
+
+
+integer sumof(integer n)
+{
+	decl
+	
+	enddecl
+
+	begin
+		n = n + 3; 
+		return n;
+		
+	end
+}
+
+integer sub(integer n)
+{
+	decl
+	
+	enddecl
+
+	begin
+		write(n);
+		n = n - 2; 
+		return n;
+		
+	end
+}
+
+
+integer main()
+{
+	decl
+		integer n, i, ret;
+	enddecl
+
+	begin
+		read(n);
+		ret = sumof(sub(n));
+		write(ret);
+		return 0;
+	end
+}

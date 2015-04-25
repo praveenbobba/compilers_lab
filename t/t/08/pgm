@@ -1,0 +1,60 @@
+decl
+	integer a[100], sort(integer n);
+enddecl
+
+
+integer sort(integer n)
+{
+	decl
+		integer i, j, tmp;
+	enddecl
+	begin
+		i = 0;
+		while (i < n)
+		do
+			j = 0;
+			while (j < n-1)
+			do
+				if (a[j] > a[j+1])
+				then
+					tmp = a[j];
+					a[j] = a[j+1];
+					a[j+1] = tmp;
+				endif;
+				j = j + 1;
+			endwhile;
+			i = i + 1;
+		endwhile;
+
+		return 0;
+	end
+}
+
+integer main()
+{
+	decl
+		integer n, i, ret;
+	enddecl
+
+	begin
+		read(n);
+
+		i = 0;
+		while (i < n)
+		do
+			read(a[i]);
+			i = i + 1;
+		endwhile;
+
+		ret = sort(n);
+
+		i = 0;
+		while (i < n)
+		do
+			write(a[i]);
+			i = i + 1;
+		endwhile;
+
+		return 0;
+	end
+}

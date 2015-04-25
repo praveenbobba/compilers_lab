@@ -1,0 +1,2 @@
+a = 10; i=0;while(i<a) do write(i); i = i + 1; endwhile; read(c); if(a == c) then write(a); else write(c); write(a); endif;
+

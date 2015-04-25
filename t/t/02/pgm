@@ -1,0 +1,17 @@
+decl
+	integer i;
+enddecl
+
+integer main()
+{
+	decl
+		integer x;
+	enddecl
+
+	begin
+		read(x);
+		write(x);
+
+		return 0;
+	end
+}

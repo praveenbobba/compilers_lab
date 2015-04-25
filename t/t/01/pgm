@@ -1,0 +1,35 @@
+decl
+	integer print(integer n);
+enddecl
+
+integer print(integer n)
+{
+	decl
+		integer i;
+	enddecl
+
+	begin
+		i = 0;
+		while (i < n)
+		do
+			write(i);
+			i = i + 1;
+		endwhile;
+
+		return 0;
+	end
+}
+
+integer main()
+{
+	decl
+		integer x, ret;
+	enddecl
+
+	begin
+		read(x);
+		ret = print(x);
+
+		return ret;
+	end
+}

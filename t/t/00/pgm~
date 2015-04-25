@@ -1,0 +1,40 @@
+decl
+	integer factorial(integer n);
+	integer main();
+enddecl
+
+integer factorial(integer n)
+{
+	decl
+		integer rvalue;
+	enddecl
+
+	begin
+		if (n == 1)
+		then
+			rvalue = 1;
+		else
+			rvalue = n * factorial(n-1);
+		endif;
+
+		return rvalue;
+	end
+}
+
+integer main()
+{
+	decl
+		integer x, i;
+	enddecl
+
+	begin
+		read(x);
+		i = 1;
+		while (i <= x)
+		do
+			write(factorial(i));
+			i = i + 1;
+		endwhile;
+		return 1;
+	end
+}

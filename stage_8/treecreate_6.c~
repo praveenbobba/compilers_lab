@@ -1,0 +1,18 @@
+
+#include<stdio.h>
+#include<stdlib.h>
+#include"exptree_6.h"
+
+struct tnode *treecreate(int type,int nodetype,int value,char *name,struct tnode *ptr1,struct tnode *ptr2,struct tnode *ptr3)
+{
+	struct tnode *newnode = (struct tnode *)malloc(sizeof(struct tnode));
+	newnode->type = type;
+	newnode->nodetype = nodetype;
+	newnode->value = value;
+	newnode->name = name;
+	newnode->ptr1 = ptr1;
+	newnode->ptr2 = ptr2;
+	newnode->ptr3 = ptr3;
+
+	return (newnode) ; 
+}

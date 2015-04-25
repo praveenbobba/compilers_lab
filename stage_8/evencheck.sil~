@@ -1,0 +1,16 @@
+decl
+
+integer a,b[5];
+integer n;
+
+enddecl
+
+
+
+read (n);
+
+if(n%2==0)then
+	write(n);
+endif;
+
+

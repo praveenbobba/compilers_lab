@@ -1,0 +1,40 @@
+decl
+	integer fib(integer n);
+enddecl
+
+integer fib(integer n)
+{
+	decl
+		integer a, b, tmp, count;
+	enddecl
+
+	begin
+		count = 2;
+		a = 0;
+		b = 1;
+		write(a);
+		write(b);
+		while (count < n) do
+			tmp = a + b;
+			a = b;
+			b = tmp;
+			write(b);
+			count = count + 1;
+		endwhile;
+
+		return 0;
+	end
+}
+
+integer main()
+{
+	decl
+		integer n, i, ret;
+	enddecl
+
+	begin
+		read(n);
+		ret = fib(n);
+		return 0;
+	end
+}
