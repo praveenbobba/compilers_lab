@@ -714,10 +714,10 @@ expr	:	DIGIT 			{
 						$1->nodetype = 15;
 						if( ($1->type == 1) || ($1->type == 3) )
 							yyerror("function name is declared as an array type");
-						
-						param_check(call_head,$1->gentry->garg_list);
+						$3->arg_previous = NULL;
+						param_check($3,$1->gentry->garg_list);
 						printf("func call1\n");
-						$1->ptr1 = call_head;
+						$1->ptr1 = $3;
 						$1->ptr3 = NULL;
 						$$ = $1;
 						call_head = NULL; call_tail = NULL;
@@ -747,12 +747,21 @@ expr	:	DIGIT 			{
 
 		;
 
-expr_list	: expr_list ',' expr 	{	make_call_list($3);
+expr_list	: expr_list ',' expr 	{	//make_call_list($3);
+						
+        
+        						$3->arg_next = $1;
+       							 $1->arg_previous = $3;$1 = $3;
+        						$$= $1;
+   						 
 						printf("expr_list1\n");
 					}
 
 		| expr			{
-						make_call_list($1);
+						//make_call_list($1);
+						$1->arg_next = NULL;
+						$1->arg_previous = NULL;
+						$$ = $1;
 						printf("expr_list2\n");
 					}
 
@@ -906,7 +915,8 @@ int codegen(struct tnode *nd){
 						fprintf(fp,"MOV R%d, [R%d]\n",r1,r2);
 						fprintf(fp,"PUSH R%d\n",r1);
 					}
-					fprintf(fp,"PUSH R%d\n",r2);
+					else
+						fprintf(fp,"PUSH R%d\n",r2);
 					freereg(r1);
 					freereg(r2);
 				}
@@ -1457,9 +1467,13 @@ void param_check(struct tnode *arg1,struct tnode *arg2)
 	while(arg1 != NULL && arg2 != NULL)
 	{
 		if( gettype(arg1) != gettype(arg2) )
-		{	yyerror("argments passing types not matched or unequal args are passing in fuction call");
+			
+		{	printf("gettype %d %d\n",gettype(arg1),gettype(arg2));
+			yyerror("argments passing types not matched or unequal args are passing in fuction call");
+			
 			//printf("paramcheck %d %d\n",arg1->ptr3->type,arg2->type);
 		}
+		printf("param name %s %s\n",arg1->name,arg2->name);
 
 		if( arg2->is_pointer == 1 )
 		{

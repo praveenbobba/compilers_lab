@@ -520,7 +520,7 @@ static const yytype_uint16 yyrline[] =
      365,   375,   377,   381,   389,   394,   397,   429,   455,   482,
      511,   520,   522,   528,   530,   535,   540,   542,   550,   558,
      566,   574,   582,   590,   598,   606,   614,   622,   630,   655,
-     678,   680,   682,   690,   698,   706,   728,   750,   754
+     678,   680,   682,   690,   698,   706,   728,   750,   760
 };
 #endif
 
@@ -2230,10 +2230,10 @@ yyreduce:
 						(yyvsp[-3])->nodetype = 15;
 						if( ((yyvsp[-3])->type == 1) || ((yyvsp[-3])->type == 3) )
 							yyerror("function name is declared as an array type");
-						
-						param_check(call_head,(yyvsp[-3])->gentry->garg_list);
+						(yyvsp[-1])->arg_previous = NULL;
+						param_check((yyvsp[-1]),(yyvsp[-3])->gentry->garg_list);
 						printf("func call1\n");
-						(yyvsp[-3])->ptr1 = call_head;
+						(yyvsp[-3])->ptr1 = (yyvsp[-1]);
 						(yyvsp[-3])->ptr3 = NULL;
 						(yyval) = (yyvsp[-3]);
 						call_head = NULL; call_tail = NULL;
@@ -2269,23 +2269,32 @@ yyreduce:
 
   case 87:
 #line 750 "tree_9.y" /* yacc.c:1646  */
-    {	make_call_list((yyvsp[0]));
+    {	//make_call_list($3);
+						
+        
+        						(yyvsp[0])->arg_next = (yyvsp[-2]);
+       							 (yyvsp[-2])->arg_previous = (yyvsp[0]);(yyvsp[-2]) = (yyvsp[0]);
+        						(yyval)= (yyvsp[-2]);
+   						 
 						printf("expr_list1\n");
 					}
-#line 2276 "y.tab.c" /* yacc.c:1646  */
+#line 2282 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 88:
-#line 754 "tree_9.y" /* yacc.c:1646  */
+#line 760 "tree_9.y" /* yacc.c:1646  */
     {
-						make_call_list((yyvsp[0]));
+						//make_call_list($1);
+						(yyvsp[0])->arg_next = NULL;
+						(yyvsp[0])->arg_previous = NULL;
+						(yyval) = (yyvsp[0]);
 						printf("expr_list2\n");
 					}
-#line 2285 "y.tab.c" /* yacc.c:1646  */
+#line 2294 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 2289 "y.tab.c" /* yacc.c:1646  */
+#line 2298 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2513,7 +2522,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 761 "tree_9.y" /* yacc.c:1906  */
+#line 770 "tree_9.y" /* yacc.c:1906  */
 
 
 void yyerror(char *s) {
@@ -3214,9 +3223,13 @@ void param_check(struct tnode *arg1,struct tnode *arg2)
 	while(arg1 != NULL && arg2 != NULL)
 	{
 		if( gettype(arg1) != gettype(arg2) )
-		{	yyerror("argments passing types not matched or unequal args are passing in fuction call");
+			
+		{	printf("gettype %d %d\n",gettype(arg1),gettype(arg2));
+			yyerror("argments passing types not matched or unequal args are passing in fuction call");
+			
 			//printf("paramcheck %d %d\n",arg1->ptr3->type,arg2->type);
 		}
+		printf("param name %s %s\n",arg1->name,arg2->name);
 
 		if( arg2->is_pointer == 1 )
 		{

@@ -2,7 +2,7 @@ decl
 	integer a[100];
 	integer swap(integer &a, &b);
 	integer partition(integer p, r);
-	integer sort(integer p, r);
+	integer sort(integer p,q,r);
 enddecl
 
 integer swap(integer &a, &b)
@@ -44,17 +44,16 @@ integer partition(integer p, r)
 	end
 }
 
-integer sort(integer p, r)
+integer sort(integer p, q, r)
 {
 	decl
-		integer q, ret;
+		integer t, ret;
 	enddecl
 	begin
 		if (p < r)
 		then
-			q = partition(p, r);
-			ret = sort(p, q-1);
-			ret = sort(q+1, r);
+			t = partition(p, r);
+			ret = sort(p, sort(q+1,0,r),q-1);
 		endif;
 		return 0;
 	end
@@ -76,7 +75,7 @@ integer main()
 			i = i + 1;
 		endwhile;
 
-		ret = sort(0, n-1);
+		ret = sort(0,0, n-1);
 
 		i = 0;
 		while (i < n)

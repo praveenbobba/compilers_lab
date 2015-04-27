@@ -11,13 +11,13 @@ int gettype(struct tnode *nd)
 	if(nd->nodetype == 0 && nd->type == 2 )  // boolean diit
 		return 2;
 
-	if((nd->type == 0 || nd->type == 1)&& ( nd->nodetype== 2 || nd->nodetype == 12) )  // integer identifier
+	if((nd->type == 0 || nd->type == 1)&& ( nd->nodetype== 2 || nd->nodetype == 12 || nd->nodetype == 15) )  // integer identifier
 	{
 		return 0;
 		//printf("int idntifier\n");
 	}
 
-	if((nd->type == 2 || nd->type == 3)&& ( nd->nodetype== 2 || nd->nodetype == 12))		// boolean identifier
+	if((nd->type == 2 || nd->type == 3)&& ( nd->nodetype== 2 || nd->nodetype == 12 || nd->nodetype == 15))		// boolean identifier
 		return 2;	
 
 	if(nd->type == 0 && nd->nodetype== 1)		// for +,-,*,/

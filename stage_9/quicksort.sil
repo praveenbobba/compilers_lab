@@ -1,7 +1,7 @@
 decl
 integer a[16]; 
 integer partition(integer p,r); 
-boolean quicksort( integer p;boolean t;integer r) ;
+boolean quicksort(boolean t; integer p,r); 
 integer swap(integer &x,&y);
 enddecl
 
@@ -37,7 +37,7 @@ begin
 	end
 }
 
-boolean quicksort( integer p;boolean t;integer r)
+boolean quicksort(boolean t; integer p,r)
 {
 decl
 	integer q; boolean dummy;
@@ -45,7 +45,7 @@ enddecl
 	begin
 	if(p<r) then
 	q = partition(p,r);
-	dummy = quicksort(q+1,quicksort(p,TRUE,q-1),r);
+	dummy = quicksort(quicksort(TRUE,p,q-1),q+1,r);
 	endif;
 	return TRUE;
 	end
@@ -67,7 +67,7 @@ integer main(){
 			write(a[i]);
 			i=i+1;
 		endwhile;
-		temp1 = quicksort(1,TRUE,15);
+		temp1 = quicksort(TRUE,1,15);
 		write(111111111);
 		i = 1;
 		while(i<=15) do
