@@ -74,7 +74,8 @@ extern int yydebug;
     RETURN = 284,
     BEGINN = 285,
     END = 286,
-    MAIN = 287
+    MAIN = 287,
+    ITER = 288
   };
 #endif
 /* Tokens.  */
@@ -108,6 +109,7 @@ extern int yydebug;
 #define BEGINN 285
 #define END 286
 #define MAIN 287
+#define ITER 288
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

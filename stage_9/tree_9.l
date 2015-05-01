@@ -29,6 +29,10 @@
 	return DIGIT ;
 	}
 
+"iter"	{
+		return ITER;
+	}
+
 "begin"	{
 		return BEGINN;
 	}

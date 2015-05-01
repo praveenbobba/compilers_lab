@@ -214,7 +214,7 @@
 	}
 
 
-[-/+*=] {//yylval = (struct tnode *)malloc(sizeof(struct tnode));
+[-/+*=%] {//yylval = (struct tnode *)malloc(sizeof(struct tnode));
 		yylval = treecreate(0,1,-1,yytext,NULL,NULL,NULL,NULL);
 		//printf("reg expr ID %s\n ",yytext);
 	//yylval->nodetype = 1;	

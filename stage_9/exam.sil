@@ -1,0 +1,30 @@
+decl
+	integer f(integer n);
+enddecl
+
+integer f(integer n)
+{
+	decl
+		
+	enddecl
+
+	begin
+		n = n/2;
+		
+		return (n);
+	end
+}
+
+integer main()
+{
+	decl
+		integer n,k;
+	enddecl
+
+	begin
+		read(n);
+		k = iter(f,iter(f,n));
+		write(k);
+	return 0;
+	end
+}

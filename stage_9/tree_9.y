@@ -55,7 +55,7 @@
 %token ENDWHILE
 %token EQU
 %token LT GT LE GE NE
-%token RETURN BEGINN END MAIN
+%token RETURN BEGINN END MAIN ITER
 
 %nonassoc ID
 %nonassoc "[" "]"
@@ -181,6 +181,7 @@ funclist	:	| funclist funcdef
 
 funcdef		:	type func_name '(' arglist2 ')' '{' local_def body '}'	{
 									  $2->gentry = glookup($2->name);
+			
 									  if($2->gentry == NULL)
 										yyerror("function not declared");
 									  $2->type = $2->gentry->type;
@@ -745,6 +746,29 @@ expr	:	DIGIT 			{
 						$$ = $1;
 					}
 
+		| ITER '(' ID ',' expr ')'	{	
+						$3->gentry = glookup($3->name);
+						if($3->gentry == NULL )
+						{
+							printf("hello\n");
+							yyerror("function not declared");
+
+						}
+						$3->type = $3->gentry->type;
+						if($3->type != 0)
+							yyerror("func type in iter constrct is not an integer");
+						$3->nodetype = 16;
+
+						//param_check($5,$3->gentry->garg_list);
+						printf("iter construct\n");
+						$3->ptr1 = $5;
+						$3->ptr3 = NULL;
+						$$ = $3;
+						call_head = NULL; call_tail = NULL;
+						
+						
+					}
+
 		;
 
 expr_list	: expr_list ',' expr 	{	//make_call_list($3);
@@ -807,7 +831,7 @@ int machinecode(struct tnode *tree)
 }
 
 int codegen(struct tnode *nd){
-	int r, r1, r2, l,l1,l2,loc_var_count=0, i=0, call_var_count = 0, param_count =0,ret_reg;
+	int r, r1, r2, l,l1,l2,loc_var_count=0, i=0, call_var_count = 0, param_count =0,ret_reg,l3,l4,k_count = 0;
 	int loc ;
 	struct tnode *find_count;
 	struct lsymbol *find_count2;
@@ -981,6 +1005,55 @@ int codegen(struct tnode *nd){
 		for(i=reg_count-1; i >= 0 ; i--)    //reg_count-1 is because 1 reg we added for ret val
 			fprintf(fp,"POP R%d\n",i);
 
+		return ret_reg; // equals to reg_count only
+		
+		//func call
+	}
+
+	if(nd->nodetype == 16)
+	{	k_count = getreg();
+		fprintf(fp,"MOV R%d, 0\n",k_count);
+		r = codegen(nd->ptr1);
+		r1 = getreg();
+		fprintf(fp,"MOV R%d, 1\n",r1);
+		fprintf(fp,"EQ R%d, R%d\n",r1,r);
+		l1 = getlabel();
+		l2 = getlabel();
+		l = getlabel();
+		freereg(r1);
+		fprintf(fp,"JNZ R%d, L%d\n",r1,l2);
+
+		fprintf(fp,"L%d:\n",l1);
+		fprintf(fp,"INR R%d\n",k_count);
+		for(i=0; i <= reg_count ; i++)
+			fprintf(fp,"PUSH R%d\n",i);
+		
+		r1 = getreg();
+		fprintf(fp,"PUSH R%d\n",r1);  //space for return value
+		//freereg(r1);
+		fprintf(fp,"CALL L%s\n",nd->gentry->func_label);
+		//r1= getreg();
+		fprintf(fp,"POP R%d\n",r1);	//ret value
+		fprintf(fp,"POP R%d\n",r);	//parameter
+		fprintf(fp,"POP R%d\n",k_count);
+		fprintf(fp,"MOV R%d, R%d\n",r,r1);
+		fprintf(fp,"MOV R%d, 1\n",r1);
+		fprintf(fp,"EQ R%d, R%d\n",r1,r);
+		//l3 = getlabel();
+		
+		//freereg(r1);
+		//ret_reg = r1;
+
+		for(i=reg_count-3; i >= 0 ; i--)    //reg_count-1 is because 1 reg we added for ret val
+			fprintf(fp,"POP R%d\n",i);
+		fprintf(fp,"JZ R%d, L%d\n",r1,l1);
+		freereg(r1);
+		freereg(r);
+		fprintf(fp,"L%d:\n",l2);	
+		ret_reg = k_count;
+		fprintf(fp,"JMP L%d\n",l);
+
+		fprintf(fp,"L%d:\n",l);
 		return ret_reg; // equals to reg_count only
 		
 		//func call
